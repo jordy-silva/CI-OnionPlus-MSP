@@ -17,6 +17,8 @@
 </head>
 
 <body>
+
+    <!-- Sidenav -->
     <ul id="slide-out" class="sidenav sidenav-fixed purple">
         <li>
             <div class="user-view">
@@ -28,10 +30,12 @@
                 <a href="#email"><span class="white-text email">your_email@gmail.com</span></a>
             </div>
         </li>
-        <li><a class="waves-effect" href="#!"><i class="material-icons">home</i>Home</a></li>
+        <li><a class="waves-effect" href="{% url 'index' %}"><i class="material-icons">home</i>Home</a></li>
         <li><a class="waves-effect" href="#!"><i class="material-icons">person</i>Profile</a></li>
-        <li><a class="waves-effect" href="#!"><i class="material-icons">bug_report</i>Bugs</a></li>
-        <li><a class="waves-effect" href="#!"><i class="material-icons">extension</i>Features</a></li>
+        <li><a class="waves-effect" href="{% url 'bugs' %}"><i class="material-icons">bug_report</i>Bugs</a></li>
+        <li><a class="waves-effect" href="{% url 'features' %}"><i class="material-icons">extension</i>Features</a></li>
+        <!-- Login Modal Trigger -->
+        <li><a class="waves-effect modal-trigger" href="#login_modal"><i class="material-icons">fingerprint</i>Log In</a></li>
         <li><a class="waves-effect" href="#!"><i class="material-icons">exit_to_app</i>Log Out</a></li>
         <li>
             <div class="divider"></div>
@@ -42,12 +46,26 @@
     </ul>
     <a href="#" data-target="slide-out" class="sidenav-trigger"><i
             class="medium material-icons purple-text">menu</i></a>
-
+    
+    <!-- MAIN BLOCK -->
     <main>
         <div class="container">
             {% block content %} {% endblock %}
         </div>
     </main>
+
+
+
+    <!-- Modal Structure -->
+    <div id="login_modal" class="modal">
+        <div class="modal-content">
+            <h4>Modal Header</h4>
+            <p>A bunch of text</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+        </div>
+    </div>
 
     <!-- Materialize Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

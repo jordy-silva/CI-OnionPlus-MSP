@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if type == 'FEATURE' %}
+<h2 class="center-align">Features</h2>
+{% else %}
+<h2 class="center-align">Bugs</h2>
+{% endif %}
+
+<!-- SHOW ALL TICKETS IN A COLLAPSIBLE -->
+<ul class="collapsible popout">
+    {% for ticket in tickets %}
+    <li>
+        <div class="collapsible-header"><i class="material-icons">filter_drama</i>{{ ticket.subject }}
+            <span class="new badge purple" data-badge-caption="votes">{{ ticket.number_votes }}</span>
+            <span class="new badge purple" data-badge-caption="">{{ ticket.status }}</span>
+        </div>
+        <div class="collapsible-body">
+            <span>{{ ticket.description }}</span>
+            <span>{{ ticket.creation_ts }}</span>
+            <span>{{ ticket.ticket_type }}</span>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+
+<!-- ACTION BUTTON TO ADD NEW RECORD -->
+<div class="fixed-action-btn">
+    <a class="btn-floating btn-large purple tooltipped" data-position="left" data-tooltip="Add new">
+        <i class="large material-icons">add_circle</i>
+    </a>
+</div>
+
+{% endblock %}
