@@ -17,9 +17,10 @@
             <span class="new badge purple" data-badge-caption="">{{ ticket.status }}</span>
         </div>
         <div class="collapsible-body">
-            <span>{{ ticket.description }}</span>
-            <span>{{ ticket.creation_ts }}</span>
-            <span>{{ ticket.ticket_type }}</span>
+            <span>{{ ticket.description }}</span><br>
+            <span>{{ ticket.creation_ts }}</span><br>
+            <span>{{ ticket.ticket_type }}</span><br>
+            <span>{{ ticket.pk }}</span><br>
         </div>
     </li>
     {% endfor %}
@@ -27,7 +28,7 @@
 
 <!-- ACTION BUTTON TO ADD NEW RECORD -->
 <div class="fixed-action-btn">
-    <a class="btn-floating btn-large purple tooltipped" data-position="left" data-tooltip="Add new">
+    <a href="{% url 'create_ticket' %}" class="btn-floating btn-large purple tooltipped" data-position="left" data-tooltip="Add new">
         <i class="large material-icons">add_circle</i>
     </a>
 </div>

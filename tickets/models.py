@@ -24,11 +24,11 @@ class Ticket(models.Model):
         choices=TICKET_TYPE_CHOICES,
         default=FEATURE,
     )
-    user_id = models.CharField(max_length=254)
+    user_id = models.CharField(max_length=254, default="5555")
     subject = models.CharField(max_length=254)
     description = models.TextField()
     creation_ts = models.DateTimeField(auto_now_add=True)
-    number_votes = models.IntegerField()
+    number_votes = models.IntegerField(default=0)
     status = models.CharField(
         max_length=5,
         choices=STATUS_CHOICES,
