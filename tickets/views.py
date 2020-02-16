@@ -20,6 +20,7 @@ def create_ticket(request, pk=None):
         form = TicketForm(request.POST, request.FILES, instance=ticket)
         if form.is_valid():
             ticket = form.save()
+            messages.success(request, "Ticket added")
             return redirect(all_features)
     else:
         form = TicketForm(instance=ticket)

@@ -78,6 +78,17 @@
         M.AutoInit();
     </script>
 
+    <!-- Show toast with feedback messages for the user -->
+    {% if messages %}
+    <div>
+        {% for message in messages %}
+        <script type="text/javascript">
+            M.toast({ html: '{{ message }}', classes: 'rounded' });
+        </script>
+        {% endfor %}
+    </div>
+    {% endif %}
+
 </body>
 
 </html>

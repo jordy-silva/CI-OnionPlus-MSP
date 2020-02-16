@@ -14,11 +14,11 @@ def login(request):
                                      password=request.POST['password'])
             if user:
                 auth.login(user=user, request=request)
-                messages.success(request, "You have successfully logged in!")
+                messages.success(request, "You are logged in!")
                 return redirect(reverse('index'))
             else:
                 login_form.add_error(
-                    None, "Your username or password is incorrect")
+                    None, "Incorrect Username or password")
     else:
         login_form = UserLoginForm()
         return render(request, 'index.html', {'login_form': login_form})
@@ -26,6 +26,6 @@ def login(request):
 def logout(request):
     """User log out"""
     auth.logout(request)
-    messages.success(request, "You have successfully been logged out")
+    messages.success(request, "You have been logged out")
     login_form = UserLoginForm()
     return render(request, 'index.html', {'login_form': login_form})
