@@ -17,9 +17,11 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from home.views import index
 from tickets import urls as urls_tickets
+from accounts import urls as urls_accounts
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', index, name="index"),
     url(r'^tickets/', include(urls_tickets)),
+    url(r'^account/', include(urls_accounts)),
 ]

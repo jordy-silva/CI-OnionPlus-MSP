@@ -26,7 +26,7 @@
                     <img src="">
                 </div>
                 <a href="#user"><img class="circle" src=""></a>
-                <a href="#name"><span class="white-text name">User Name</span></a>
+                <a href="#name"><span class="white-text name">{{ user }}</span></a>
                 <a href="#email"><span class="white-text email">your_email@gmail.com</span></a>
             </div>
         </li>
@@ -35,8 +35,9 @@
         <li><a class="waves-effect" href="{% url 'bugs' %}"><i class="material-icons">bug_report</i>Bugs</a></li>
         <li><a class="waves-effect" href="{% url 'features' %}"><i class="material-icons">extension</i>Features</a></li>
         <!-- Login Modal Trigger -->
-        <li><a class="waves-effect modal-trigger" href="#login_modal"><i class="material-icons">fingerprint</i>Log In</a></li>
-        <li><a class="waves-effect" href="#!"><i class="material-icons">exit_to_app</i>Log Out</a></li>
+        <li><a class="waves-effect modal-trigger" href="#login_modal"><i class="material-icons">fingerprint</i>Log
+                In</a></li>
+        <li><a class="waves-effect" href="{% url 'logout' %}"><i class="material-icons">exit_to_app</i>Log Out</a></li>
         <li>
             <div class="divider"></div>
         </li>
@@ -46,7 +47,7 @@
     </ul>
     <a href="#" data-target="slide-out" class="sidenav-trigger"><i
             class="medium material-icons purple-text">menu</i></a>
-    
+
     <!-- MAIN BLOCK -->
     <main>
         <div class="container">
@@ -58,13 +59,15 @@
 
     <!-- Modal Structure -->
     <div id="login_modal" class="modal">
-        <div class="modal-content">
-            <h4>Modal Header</h4>
-            <p>A bunch of text</p>
-        </div>
-        <div class="modal-footer">
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
-        </div>
+        <form method="POST" action="{% url 'login' %}">
+            <div class="modal-content">
+                <h4>Log In</h4>
+                {% csrf_token %} {{ login_form }}
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="modal-close waves-effect waves-green btn-flat">Login</button>
+            </div>
+        </form>
     </div>
 
     <!-- Materialize Compiled and minified JavaScript -->
