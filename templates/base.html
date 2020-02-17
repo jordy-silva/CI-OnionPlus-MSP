@@ -26,8 +26,8 @@
                     <img src="">
                 </div>
                 <a href="#user"><img class="circle" src=""></a>
-                <a href="#name"><span class="white-text name">{{ user }}</span></a>
-                <a href="#email"><span class="white-text email">your_email@gmail.com</span></a>
+                <a href="#name"><span class="white-text name">{{ user.username }}</span></a>
+                <a href="#email"><span class="white-text email">{{ user.email }}</span></a>
             </div>
         </li>
         <li><a class="waves-effect" href="{% url 'index' %}"><i class="material-icons">home</i>Home</a></li>
@@ -57,17 +57,34 @@
 
 
 
-    <!-- Modal Structure -->
+    <!-- Modal Log In & Sign In -->
     <div id="login_modal" class="modal">
-        <form method="POST" action="{% url 'login' %}">
-            <div class="modal-content">
-                <h4>Log In</h4>
-                {% csrf_token %} {{ login_form }}
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="modal-close waves-effect waves-green btn-flat">Login</button>
-            </div>
-        </form>
+        <ul id="modal-tabs-swipe" class="tabs tabs-fixed-width">
+            <li class="tab col s3"><a href="#tab-log-in">Log In</a></li>
+            <li class="tab col s3"><a href="#tab-sign-in">Sign Up</a></li>
+        </ul>
+        <div id="tab-log-in" class="col s12">
+            <form method="POST" action="{% url 'login' %}">
+                <div class="modal-content">
+                    <h4>Log In</h4>
+                    {% csrf_token %} {{ login_form }}
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="waves-effect waves-purple btn-flat">Login</button>
+                </div>
+            </form>
+        </div>
+        <div id="tab-sign-in" class="col s12">
+            <form method="POST" action="{% url 'signup' %}">
+                <div class="modal-content">
+                    <h4>Sign Up</h4>
+                    {% csrf_token %} {{ signin_form.as_p }}
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="waves-effect waves-purple btn-flat">Sign Up!</button>
+                </div>
+            </form>
+        </div>
     </div>
 
     <!-- Materialize Compiled and minified JavaScript -->
