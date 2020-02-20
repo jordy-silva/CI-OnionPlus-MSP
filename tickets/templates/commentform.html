@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col s12">
+        <div class="card purple darken-4">
+            <div class="card-content white-text">
+                <span class="card-title">{{ ticket.subject }}</span>
+                <p>{{ ticket.description }}</p>
+            </div>
+            <div class="card-action">
+                <span class="new badge purple" data-badge-caption="votes">{{ ticket.number_votes }}</span>
+                <span class="new badge purple" data-badge-caption="">{{ ticket.status }}</span>
+                <span class="white-text">Created: {{ ticket.creation_ts }}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h2 class="center-align">Add Your Comment</h2>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit" class="btn purple">Comment</button>
+</form>
+
+{% endblock %}

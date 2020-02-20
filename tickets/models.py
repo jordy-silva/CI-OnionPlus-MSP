@@ -24,7 +24,7 @@ class Ticket(models.Model):
         choices=TICKET_TYPE_CHOICES,
         default=FEATURE,
     )
-    user_id = models.CharField(max_length=254, default="5555")
+    user_id = models.IntegerField(default=5555)
     subject = models.CharField(max_length=254)
     description = models.TextField()
     creation_ts = models.DateTimeField(auto_now_add=True)
@@ -38,3 +38,12 @@ class Ticket(models.Model):
     def __str__(self):
         return self.subject
 
+
+class Comment(models.Model):
+    user_id = models.IntegerField(default=0)
+    ticket_id = models.IntegerField(default=0)
+    description = models.TextField()
+    creation_ts = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.description
