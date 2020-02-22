@@ -47,3 +47,7 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.description
+
+class Vote(models.Model):
+    user_id = models.IntegerField(default=0)
+    ticket_id = models.IntegerField(default=0)
