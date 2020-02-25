@@ -1,9 +1,46 @@
+@import url('https://fonts.googleapis.com/css?family=Ubuntu:400,700&display=swap');
+
+/* ---------------------------------------------------
+    GLOBAL
+----------------------------------------------------- */
 header, main, footer {
     padding-left: 300px;
   }
 
-  @media only screen and (max-width : 992px) {
-    header, main, footer {
-      padding-left: 0;
-    }
+.bold {
+  font-weight: 700;
+}
+
+#ticketStatusTODO {
+  margin-left: 10px;
+  background-color: #f44336 !important;
+  color: black;
+  font-weight: 700;
+}
+
+#ticketStatusDOING {
+  margin-left: 10px;
+  background-color: #ffeb3b !important;
+  color: black;
+  font-weight: 700;
+}
+
+#ticketStatusDONE {
+  margin-left: 10px;
+  background-color: #4caf50 !important;
+  color: black;
+  font-weight: 700;
+}
+
+#ticketBadge {
+  margin-left: auto;
+}
+
+/* ---------------------------------------------------
+    Media Queries
+----------------------------------------------------- */
+@media only screen and (max-width : 992px) {
+  header, main, footer {
+    padding-left: 0;
   }
+}

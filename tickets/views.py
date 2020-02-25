@@ -11,7 +11,7 @@ def all_bugs(request):
     """ Create a view to show all Bug tickets """
     tickets = Ticket.objects.filter(ticket_type='BUG')
     voted = Vote.objects.filter(user_id=request.user.id).values_list('ticket_id', flat=True)
-    return render(request, "tickets.html", {"tickets": tickets, "voted": voted})
+    return render(request, "tickets.html", {"tickets": tickets, "voted": voted, "type": "BUG"})
 
 
 def all_features(request):
@@ -20,17 +20,20 @@ def all_features(request):
     return render(request, "tickets.html", {"tickets": tickets, "type": "FEATURE"})
 
 
-def create_ticket(request, pk=None):
+def create_ticket(request, ticket_type):
     """ Create a view to show all feature tickets """
-    ticket = get_object_or_404(Ticket, pk=pk) if pk else None
     if request.method == "POST":
-        form = TicketForm(request.POST, request.FILES, instance=ticket)
+        form = TicketForm(request.POST)
         if form.is_valid():
-            ticket = form.save()
+            form.save()
             messages.success(request, "Ticket added")
-            return redirect(all_features)
+            if ticket_type == "FEATURE":
+                return redirect(all_features)
+            else:
+                return redirect(all_bugs)
     else:
-        form = TicketForm(instance=ticket)
+        form = TicketForm()
+        form.fields["ticket_type"].initial = ticket_type
         return render(request, 'ticketform.html', {'form': form})
 
 

@@ -4,6 +4,8 @@
 
 {% if type == 'FEATURE' %}
 <h2 class="center-align">Features</h2>
+<p>Features that reach the 500€ will be worked on. If you want to support the development of any feature please use the
+    button to make your contribution.</p>
 {% else %}
 <h2 class="center-align">Bugs</h2>
 {% endif %}
@@ -12,31 +14,44 @@
 <ul class="collapsible popout">
     {% for ticket in tickets %}
     <li>
-        <div class="collapsible-header"><i class="material-icons">filter_drama</i>{{ ticket.subject }}
-            <span class="new badge purple" data-badge-caption="votes">{{ ticket.number_votes }}</span>
+        <div class="collapsible-header">
+            <i class="material-icons">
+                <!-- Different icon in the the collapsible header for bugs and features-->
+                {% if type == 'FEATURE' %}
+                extension
+                {% else %}
+                bug_report
+                {% endif %}
+            </i>{{ ticket.subject }}
+            <span id="ticketStatus{{ ticket.status }}" class="new badge purple" data-badge-caption="">{{ ticket.status }}</span>
             <!-- If user has already voted this ticket, we don't show thumbs up button -->
+            <span id="ticketBadge">
             {% if ticket.pk not in voted %}
-            <span>
-                <a href="{% url 'thumb_up' ticket.id %}">
-                    <i class="small material-icons purple-text">thumb_up</i>
-                </a>
-            </span>
+            <a href="{% url 'thumb_up' ticket.id %}">
+                <i class="small material-icons purple-text">thumb_up</i>
+            </a>
+            {% elif type == 'FEATURE' %}
+            <a href="{% url 'show_comments' ticket.id %}">
+                <i class="small material-icons purple-text">monetization_on</i>
+            </a>
             {% endif %}
-            <span class="new badge purple" data-badge-caption="">{{ ticket.status }}</span>
+            
+            <span class="new badge purple" data-badge-caption="votes">{{ ticket.number_votes }}</span>
+            </span>
         </div>
         <div class="collapsible-body">
-            <span>Requested: {{ ticket.description }}</span><br>
+            <span>{{ ticket.description }}</span><br>
             <hr>
             {% if type == 'FEATURE' %}
-            <span>Requested: {{ ticket.creation_ts }}</span><br>
+            <span class="bold">Requested: {{ ticket.creation_ts }}</span><br>
             {% else %}
-            <span>Reported: {{ ticket.creation_ts }}</span><br>
+            <span class="bold">Reported: {{ ticket.creation_ts }}</span><br>
             {% endif %}
             <span>{{ ticket.ticket_type }}</span><br>
             <span>{{ ticket.pk }}</span><br>
             <a href="{% url 'add_comment' ticket.id user.id %}"
                 class="waves-effect waves-light btn-small purple">Comment</a>
-            <a href="{% url 'show_comments' ticket.id %}" class="waves-effect waves-light btn-small purple">Show</a>
+            <a href="{% url 'show_comments' ticket.id %}" class="waves-effect waves-light btn-small purple">Show Details</a>
         </div>
     </li>
     {% endfor %}
@@ -44,7 +59,7 @@
 
 <!-- ACTION BUTTON TO ADD NEW RECORD -->
 <div class="fixed-action-btn">
-    <a href="{% url 'create_ticket' %}" class="btn-floating btn-large purple tooltipped" data-position="left"
+    <a href="{% url 'create_ticket' type %}" class="btn-floating btn-large purple tooltipped" data-position="left"
         data-tooltip="Add new">
         <i class="large material-icons">add_circle</i>
     </a>

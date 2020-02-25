@@ -18,10 +18,10 @@
 
 <div class="row">
     <div class="col s12 m6 center-align">
-        <a class="waves-effect waves-light btn-large purple"><i class="material-icons left">bug_report</i>Report Bug</a>
+        <a href="{% url 'create_ticket' 'BUG' %}" class="waves-effect waves-light btn-large purple"><i class="material-icons left">bug_report</i>Report Bug</a>
     </div>
     <div class="col s12 m6 center-align">
-        <a class="waves-effect waves-light btn-large purple"><i class="material-icons right">extension</i>Request Feature</a>
+        <a href="{% url 'create_ticket' 'FEATURE' %}" class="waves-effect waves-light btn-large purple"><i class="material-icons right">extension</i>Request Feature</a>
     </div>
 </div>
 
