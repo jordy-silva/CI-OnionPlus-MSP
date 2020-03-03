@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, HttpResponseRedirect
 from django.contrib import auth, messages
 from accounts.forms import UserLoginForm, UserRegistrationForm
 
@@ -7,6 +7,7 @@ from accounts.forms import UserLoginForm, UserRegistrationForm
 
 def login(request):
     """Render a login page"""
+    redirect_to = request.GET.get('next')
     if request.user.is_authenticated:
         return redirect(reverse('index'))
     if request.method == "POST":
@@ -17,10 +18,14 @@ def login(request):
             if user:
                 auth.login(user=user, request=request)
                 messages.success(request, "You are logged in!")
-                return redirect(reverse('index'))
+                if redirect_to:
+                    return HttpResponseRedirect(redirect_to)
+                else:
+                    return redirect(reverse('index'))
             else:
                 login_form.add_error(
                     None, "Incorrect Username or password")
+                return redirect(reverse('index'))
     else:
         login_form = UserLoginForm()
         return redirect(reverse('index'))
@@ -35,15 +40,13 @@ def logout(request):
 
 def signup(request):
     """Render a user registration page"""
+    redirect_to = request.GET.get('next')
     if request.user.is_authenticated:
         return redirect(reverse('index'))
-
     if request.method == "POST":
         registration_form = UserRegistrationForm(request.POST)
-
         if registration_form.is_valid():
             registration_form.save()
-
             user = auth.authenticate(username=request.POST['username'],
                                      password=request.POST['password1'])
             if user:
@@ -54,4 +57,7 @@ def signup(request):
             messages.error(request, registration_form.error_messages)
     else:
         registration_form = UserRegistrationForm()
-    return redirect(reverse('index'))
+    if redirect_to:
+        return HttpResponseRedirect(redirect_to)
+    else:
+        return redirect(reverse('index'))

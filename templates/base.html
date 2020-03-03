@@ -31,13 +31,19 @@
             </div>
         </li>
         <li><a class="waves-effect" href="{% url 'index' %}"><i class="material-icons">home</i>Home</a></li>
+        {% if user.is_authenticated %}
         <li><a class="waves-effect" href="#!"><i class="material-icons">person</i>Profile</a></li>
+        {% endif %}
         <li><a class="waves-effect" href="{% url 'bugs' %}"><i class="material-icons">bug_report</i>Bugs</a></li>
         <li><a class="waves-effect" href="{% url 'features' %}"><i class="material-icons">extension</i>Features</a></li>
+        {% if not user.is_authenticated %}
         <!-- Login Modal Trigger -->
         <li><a class="waves-effect modal-trigger" href="#login_modal"><i class="material-icons">fingerprint</i>Log
                 In</a></li>
+        {% endif %}
+        {% if user.is_authenticated %}
         <li><a class="waves-effect" href="{% url 'logout' %}"><i class="material-icons">exit_to_app</i>Log Out</a></li>
+        {% endif %}
         <li>
             <div class="divider"></div>
         </li>
@@ -64,7 +70,7 @@
             <li class="tab col s3"><a href="#tab-sign-in">Sign Up</a></li>
         </ul>
         <div id="tab-log-in" class="col s12">
-            <form method="POST" action="{% url 'login' %}">
+            <form method="POST" action="{% url 'login' %}?next={{redirect_to}}">
                 <div class="modal-content">
                     <h4>Log In</h4>
                     {% csrf_token %} {{ login_form }}
@@ -75,7 +81,7 @@
             </form>
         </div>
         <div id="tab-sign-in" class="col s12">
-            <form method="POST" action="{% url 'signup' %}">
+            <form method="POST" action="{% url 'signup' %}?next={{redirect_to}}">
                 <div class="modal-content">
                     <h4>Sign Up</h4>
                     {% csrf_token %} {{ signin_form.as_p }}
@@ -90,10 +96,8 @@
     <!-- Materialize Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 
-    <!-- Initialize all Materialize components-->
-    <script type="text/javascript">
-        M.AutoInit();
-    </script>
+    <!-- Initialize all Materialize components & modal functionality-->
+    <script type="text/javascript" src="{% static 'js/modal.js' %}"></script>
 
     <!-- Show toast with feedback messages for the user -->
     {% if messages %}

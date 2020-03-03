@@ -35,11 +35,13 @@
 {% endfor %}
 
 <!-- ACTION BUTTON TO ADD NEW RECORD -->
+{% if user.is_authenticated %}
 <div class="fixed-action-btn">
     <a href="{% url 'add_comment' ticket.id user.id %}" class="btn-floating btn-large purple tooltipped" data-position="left"
         data-tooltip="Add new">
         <i class="large material-icons">add_circle</i>
     </a>
 </div>
+{% endif %}
 
 {% endblock %}
