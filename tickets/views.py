@@ -13,8 +13,7 @@ from accounts.forms import UserLoginForm, UserRegistrationForm
 def all_bugs(request):
     """ Create a view to show all Bug tickets """
     tickets = Ticket.objects.filter(ticket_type='BUG')
-    voted = Vote.objects.filter(
-        user_id=request.user.id).values_list('ticket_id', flat=True)
+    voted = Vote.objects.filter(user_id=request.user.id).values_list('ticket_id', flat=True)
     login_form = UserLoginForm()
     signin_form = UserRegistrationForm()
     context = {

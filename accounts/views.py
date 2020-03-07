@@ -46,8 +46,10 @@ def signup(request):
     if request.method == "POST":
         registration_form = UserRegistrationForm(request.POST)
         if registration_form.is_valid():
-            registration_form.save()
-            user = auth.authenticate(username=request.POST['username'],
+            instance = registration_form.save(commit=False)
+            instance.username = instance.email
+            instance.save()
+            user = auth.authenticate(username=request.POST['email'],
                                      password=request.POST['password1'])
             if user:
                 auth.login(user=user, request=request)
@@ -61,3 +63,7 @@ def signup(request):
         return HttpResponseRedirect(redirect_to)
     else:
         return redirect(reverse('index'))
+
+def profile(request):
+    """ Create a view to show user's profile page """
+    return render(request, "profile.html")

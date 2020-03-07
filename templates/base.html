@@ -32,13 +32,13 @@
                     <img src="">
                 </div>
                 <a href="#user"><img class="circle" src=""></a>
-                <a href="#name"><span class="white-text name">{{ user.username }}</span></a>
+                <a href="#name"><span class="white-text name">{{ user.first_name }} {{ user.last_name }}</span></a>
                 <a href="#email"><span class="white-text email">{{ user.email }}</span></a>
             </div>
         </li>
         <li><a class="waves-effect" href="{% url 'index' %}"><i class="material-icons">home</i>Home</a></li>
         {% if user.is_authenticated %}
-        <li><a class="waves-effect" href="#!"><i class="material-icons">person</i>Profile</a></li>
+        <li><a class="waves-effect" href="{% url 'profile' %}"><i class="material-icons">person</i>Profile</a></li>
         {% endif %}
         <li><a class="waves-effect" href="{% url 'bugs' %}"><i class="material-icons">bug_report</i>Bugs</a></li>
         <li><a class="waves-effect" href="{% url 'features' %}"><i class="material-icons">extension</i>Features</a></li>
