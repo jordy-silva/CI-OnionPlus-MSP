@@ -1,0 +1,1 @@
+web: gunicorn onionplus.wsgi:application
