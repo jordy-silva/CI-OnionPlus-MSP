@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect, reverse, HttpResponseRedirect
 from django.contrib import auth, messages
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 from accounts.forms import UserLoginForm, UserRegistrationForm
+
 
 # Create your views here.
 
@@ -66,4 +69,19 @@ def signup(request):
 
 def profile(request):
     """ Create a view to show user's profile page """
-    return render(request, "profile.html")
+    errors = False
+    if request.method == 'POST':
+        pwd_change_form = PasswordChangeForm(request.user, request.POST)
+        if pwd_change_form.is_valid():
+            user = pwd_change_form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Password updated')
+        else:
+            messages.error(request, 'Please fix the errors')
+            errors = True
+    else:
+        pwd_change_form = PasswordChangeForm(request.user)
+    return render(request, "profile.html", {
+        'pwd_change_form': pwd_change_form,
+        'errors': errors
+    })

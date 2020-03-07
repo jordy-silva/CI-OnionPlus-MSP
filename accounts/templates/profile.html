@@ -6,53 +6,40 @@
     <h1>Your Profile</h1>
 </div>
 
-<ul class="collection">
-    <li class="collection-item avatar">
-        <i class="material-icons circle purple">account_circle</i>
-      <p><span class="bold">Name:</span> {{ user.first_name }}<br>
-        <span class="bold">Surname:</span> {{ user.last_name }}<br>
-        <span class="bold">email:</span> {{ user.email }}<br>
-        <span class="bold">Site Admin:</span> {{ user.is_superuser }}
-      </p>
-      <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+<ul class="collapsible expandable">
+    <li>
+        <div class="collapsible-header">
+            <i class="material-icons">account_circle</i><span class="bold">Personal Details</span>
+        </div>
+        <div class="collapsible-body">
+            <span class="bold">Name:</span> {{ user.first_name }}<br>
+            <span class="bold">Surname:</span> {{ user.last_name }}<br>
+            <span class="bold">email:</span> {{ user.email }}<br>
+            <span class="bold">Site Admin:</span> {{ user.is_superuser }}
+        </div>
     </li>
-    <li class="collection-item avatar">
-      <i class="material-icons circle green">fingerprint</i>
-      <p><span class="bold">Password:</span> {{ user.password }} <br>
-         Second Line
-      </p>
-      <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+    <li {% if errors %}class="active"{% endif %}>
+        <div class="collapsible-header">
+            <i class="material-icons">fingerprint</i><span class="bold">Password</span>
+        </div>
+        <div class="collapsible-body">Here you can can update your current password<br><br>
+            <div class="col 6">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ pwd_change_form }}
+                    <button type="submit">Change Password</button>
+                </form>
+            </div>
+        </div>
     </li>
-    <li class="collection-item avatar">
-      <i class="material-icons circle red">date_range</i>
-      <p><span class="bold">Member Since:</span> {{ user.date_joined }}<br>
-        <span class="bold">Last log-in:</span> {{ user.last_login }}
-      </p>
-      <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
+    <li>
+        <div class="collapsible-header">
+            <i class="material-icons">date_range</i><span class="bold">Other</span>
+        </div>
+        <div class="collapsible-body">
+            <span class="bold">Member Since:</span> {{ user.date_joined }}<br>
+            <span class="bold">Last log-in:</span> {{ user.last_login }}
+        </div>
     </li>
-  </ul>
-
-<div>{{ user }}</div>
-<div>{{ user.id }}</div>
-<div></div>
-<div></div>
-<div></div>
-<div>{{ user.is_staff }}</div>
-<div></div>
-<div></div>
-<div></div>
-
-
-
-
-
-<div class="row">
-    <div class="col s12 m6 center-align">
-        <a href="{% url 'create_ticket' 'BUG' %}" class="waves-effect waves-light btn-large purple"><i class="material-icons left">bug_report</i>Report Bug</a>
-    </div>
-    <div class="col s12 m6 center-align">
-        <a href="{% url 'create_ticket' 'FEATURE' %}" class="waves-effect waves-light btn-large purple"><i class="material-icons right">extension</i>Request Feature</a>
-    </div>
-</div>
-
+</ul>
 {% endblock %}
