@@ -23,21 +23,26 @@
                 bug_report
                 {% endif %}
             </i>{{ ticket.subject }}
-            <span id="ticketStatus{{ ticket.status }}" class="new badge purple" data-badge-caption="">{{ ticket.status }}</span>
+            <span id="ticketStatus{{ ticket.status }}" class="new badge purple"
+                data-badge-caption="">{{ ticket.status }}</span>
             <!-- If user has already voted this ticket, we don't show thumbs up button -->
             <span id="ticketBadge">
-            {% if ticket.pk not in voted %}
-            <a href="{% url 'thumb_up' ticket.id %}">
-                <i class="small material-icons purple-text">thumb_up</i>
-            </a>
-            {% elif type == 'FEATURE' %}
-            <a href="{% url 'show_comments' ticket.id %}">
-                <i class="small material-icons purple-text">monetization_on</i>
-            </a>
-            {% endif %}
-            
+                {% if ticket.pk not in voted %}
+                <a href="{% url 'thumb_up' ticket.id %}">
+                    <i class="small material-icons purple-text">thumb_up</i>
+                </a>
+                {% elif type == 'FEATURE' %}
+                <a href="{% url 'show_comments' ticket.id %}">
+                    <i class="small material-icons purple-text">monetization_on</i>
+                </a>
+                {% endif %}
+            {% if type == 'FEATURE' %}
+            <span class="new badge purple" data-badge-caption="funded">{% widthratio ticket.number_votes 100 1 %}
+                €</span>
+            {% else %}
             <span class="new badge purple" data-badge-caption="votes">{{ ticket.number_votes }}</span>
-            </span>
+            {% endif %}
+        </span>
         </div>
         <div class="collapsible-body">
             <span>{{ ticket.description }}</span><br>
@@ -53,7 +58,8 @@
             <a href="{% url 'add_comment' ticket.id user.id %}"
                 class="waves-effect waves-light btn-small purple">Comment</a>
             {% endif %}
-            <a href="{% url 'show_comments' ticket.id %}" class="waves-effect waves-light btn-small purple">Show Details</a>
+            <a href="{% url 'show_comments' ticket.id %}" class="waves-effect waves-light btn-small purple">Show
+                Details</a>
         </div>
     </li>
     {% endfor %}

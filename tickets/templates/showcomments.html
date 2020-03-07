@@ -10,8 +10,12 @@
                 <p>{{ ticket.description }}</p>
             </div>
             <div class="card-action">
+                {% if ticket.ticket_type == 'FEATURE' %}
+                <span class="new badge purple" data-badge-caption="funded">{% widthratio ticket.number_votes 100 1 %} €</span>
+                {% else %}
                 <span class="new badge purple" data-badge-caption="votes">{{ ticket.number_votes }}</span>
-                <span class="new badge purple" data-badge-caption="">{{ ticket.status }}</span>
+                {% endif %}
+                <span id="ticketStatus{{ ticket.status }}" class="new badge purple" data-badge-caption="">{{ ticket.status }}</span>
                 <span>{{ ticket.creation_ts }}</span>
             </div>
         </div>

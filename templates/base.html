@@ -13,6 +13,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+
+    <!-- Stripe -->
+    <link rel="stylesheet" href="{% static 'css/global.css' %}" />
+    <script src="https://js.stripe.com/v3/"></script>
+    <script src="{% static 'js/stripe.js' %}" defer></script>
+
     <title>Onion+</title>
 </head>
 
@@ -109,6 +115,8 @@
         {% endfor %}
     </div>
     {% endif %}
+
+    Here: {{ frontend_url }}
 
 </body>
 

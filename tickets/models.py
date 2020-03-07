@@ -51,3 +51,12 @@ class Comment(models.Model):
 class Vote(models.Model):
     user_id = models.IntegerField(default=0)
     ticket_id = models.IntegerField(default=0)
+
+class Funding(models.Model):
+    user_id = models.IntegerField(default=0)
+    ticket_id = models.IntegerField(default=0)
+    amount = models.IntegerField(default=0)
+    payment_id = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.payment_id

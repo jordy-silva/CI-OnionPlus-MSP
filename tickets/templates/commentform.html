@@ -10,13 +10,45 @@
                 <p>{{ ticket.description }}</p>
             </div>
             <div class="card-action">
+                {% if ticket.ticket_type == 'FEATURE' %}
+                <span id="funding" class="new badge purple" data-badge-caption="funded">{% widthratio ticket.number_votes 100 1 %} €</span>
+                {% else %}
                 <span class="new badge purple" data-badge-caption="votes">{{ ticket.number_votes }}</span>
-                <span class="new badge purple" data-badge-caption="">{{ ticket.status }}</span>
+                {% endif %}
+                <span id="ticketStatus{{ ticket.status }}" class="new badge purple" data-badge-caption="">{{ ticket.status }}</span>
                 <span class="white-text">Created: {{ ticket.creation_ts }}</span>
             </div>
         </div>
     </div>
 </div>
+
+{% if ticket.ticket_type == 'FEATURE' %}
+<div class="sr-root">
+    <div class="sr-main">
+        <form id="payment-form" class="sr-payment-form">
+            <input type="hidden" id="ticket" name="ticket" value="{{ ticket.pk }}">
+            <h6>How much do you want to contribute?</h6>
+            <div class="input-field">
+                <i class="material-icons prefix">monetization_on</i>
+                <input id="amount" type="number" class="validate" value="50" step="10" required>
+                <label for="amount">€ EURO</label>
+              </div>
+            <div class="sr-combo-inputs-row">
+                <div class="sr-input sr-card-element" id="card-element"></div>
+            </div>
+            <div class="sr-field-error" id="card-errors" role="alert"></div>
+            <button id="submit">
+                <div class="spinner hidden" id="spinner"></div>
+                <span id="button-text">Pay</span><span id="order-amount"></span>
+            </button>
+        </form>
+        <div class="sr-result hidden">
+            <p><i class="material-icons prefix green-text">check_circle</i> Payment completed</p>
+        </div>
+    </div>
+</div>
+{% endif %}
+
 
 <h2 class="center-align">Add Your Comment</h2>
 <form method="POST" enctype="multipart/form-data">
