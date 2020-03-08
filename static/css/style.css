@@ -46,6 +46,10 @@ div.main_features {
   width: 35%;
 }
 
+.errorlist {
+  color: red;
+}
+
 #ticketStatusTODO {
   margin-left: 10px;
   background-color: #f44336 !important;

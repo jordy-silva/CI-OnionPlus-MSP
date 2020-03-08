@@ -28,10 +28,16 @@ def login(request):
             else:
                 login_form.add_error(
                     None, "Incorrect Username or password")
-                return redirect(reverse('index'))
+        else:
+            messages.error(request, 'Please fix the errors')
     else:
         login_form = UserLoginForm()
-        return redirect(reverse('index'))
+    signin_form = UserRegistrationForm()
+    context = {
+        'login_form': login_form,
+        'signin_form': signin_form
+    }
+    return render(request, 'index.html', context)
 
 
 def logout(request):
@@ -59,13 +65,18 @@ def signup(request):
                 messages.success(request, "You have successfully registered")
         else:
             messages.error(request, "Unable to register your account")
-            messages.error(request, registration_form.error_messages)
+            messages.error(request, "Fix the errors")
     else:
         registration_form = UserRegistrationForm()
-    if redirect_to:
+    if redirect_to != 'None':
         return HttpResponseRedirect(redirect_to)
     else:
-        return redirect(reverse('index'))
+        login_form = UserLoginForm()
+        context = {
+            'login_form': login_form,
+            'signin_form': registration_form
+        }
+        return render(request, 'index.html', context)
 
 def profile(request):
     """ Create a view to show user's profile page """

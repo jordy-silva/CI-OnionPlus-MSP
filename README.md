@@ -4,7 +4,7 @@ Milestone Project - Full Stack Frameworks - Code Institute
 
 **FOR EDUCATIONAL PURPOSE ONLY**
 
-The customer is a software development company that has a very successful web app in the market, called [WesternOnion.](http://westernonion.herokuapp.com/show_all)
+The customer is a software development company that has a very successful web app in the market called [WesternOnion.](http://westernonion.herokuapp.com/show_all)
 
 The customer's request is to create a web based app to handle the collection of bug reports and features requests for their app WesternOnion, so they can priotize bugs based in the number of reports received and have the users fund the development of new features requested.
 
@@ -118,6 +118,6 @@ You can clone this repository by typing `git clone https://github.com/jordy-silv
 - StackOverflow was consulted for help with different challenges during the project.
 - Materialize documentation and examples have been used as base for some parts of the website.
 - How to use `next` parameter to redirect to previous page when login is required was [consulted here.](https://python-decompiler.com/article/2009-04/django-redirect-to-previous-page-after-login)
-- The Stripe integration is heavily based in their examples [here.](https://github.com/stripe-samples/accept-a-card-payment) for use of webhooks with minor changes to adapt to the use case and the developer documentation [here.](https://stripe.com/docs/payments/accept-a-payment) was also used.
+- The Stripe integration is heavily based in their examples [here](https://github.com/stripe-samples/accept-a-card-payment) for use of webhooks with minor changes to adapt to the use case and the developer documentation [here](https://stripe.com/docs/payments/accept-a-payment) was also used.
 
 [![Build Status](https://travis-ci.org/jordy-silva/CI-OnionPlus-MSP.svg?branch=master)](https://travis-ci.org/jordy-silva/CI-OnionPlus-MSP)
