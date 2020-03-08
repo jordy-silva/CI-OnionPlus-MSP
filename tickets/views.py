@@ -12,7 +12,7 @@ from accounts.forms import UserLoginForm, UserRegistrationForm
 
 def all_bugs(request):
     """ Create a view to show all Bug tickets """
-    tickets = Ticket.objects.filter(ticket_type='BUG')
+    tickets = Ticket.objects.filter(ticket_type='BUG').order_by('-number_votes')
     voted = Vote.objects.filter(user_id=request.user.id).values_list('ticket_id', flat=True)
     login_form = UserLoginForm()
     signin_form = UserRegistrationForm()
@@ -28,7 +28,7 @@ def all_bugs(request):
 
 def all_features(request):
     """ Create a view to show all feature tickets """
-    tickets = Ticket.objects.filter(ticket_type='FEATURE')
+    tickets = Ticket.objects.filter(ticket_type='FEATURE').order_by('-number_votes')
     login_form = UserLoginForm()
     signin_form = UserRegistrationForm()
     context = {
@@ -58,7 +58,7 @@ def create_ticket(request, ticket_type):
         return render(request, 'ticketform.html', {'form': form})
 
 
-@login_required()
+@login_required(login_url='/')
 def add_comment(request, pk, uid):
     """ Create a view to allow adding comments to a ticket """
     ticket = get_object_or_404(Ticket, pk=pk) if pk else None
@@ -69,18 +69,18 @@ def add_comment(request, pk, uid):
             messages.success(request, "Comment added")
             return redirect('show_comments', pk)
     else:
-        form = CommentForm(initial={'ticket_id': pk, 'user_id': uid})
+        form = CommentForm(initial={'ticket_id': pk, 'user_name': uid})
         return render(request, "commentform.html", {'ticket': ticket, 'form': form})
 
 
 def show_comments(request, pk):
     """ Create a view that shows a ticket and all it's comments """
     ticket = get_object_or_404(Ticket, pk=pk) if pk else None
-    comments = Comment.objects.filter(ticket_id=pk)
+    comments = Comment.objects.filter(ticket_id=pk).order_by('-creation_ts')
     return render(request, "showcomments.html", {'ticket': ticket, 'comments': comments})
 
 
-@login_required()
+@login_required(login_url='/')
 def thumb_up(request, pk):
     """ Allow for a user to upvote a ticket """
     vote = Vote()

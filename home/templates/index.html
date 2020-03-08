@@ -6,22 +6,19 @@
     <h1>Onion<i class="medium material-icons">add</i></h1>
 </div>
 
-<div>
-    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laborum veniam suscipit omnis sapiente ipsa molestias modi
-    dicta, culpa et tenetur quasi nam eaque, libero pariatur quisquam laudantium! Dolorum harum iure animi perspiciatis
-    ad laudantium eveniet corporis quaerat nemo pariatur tempora facilis nulla, sint aliquid molestias! Accusantium
-    nulla placeat illum sed expedita nisi possimus quia, a nobis ipsam alias molestiae saepe harum deleniti? Labore
-    necessitatibus quaerat optio esse consectetur quasi temporibus rem, quam maiores hic placeat, nemo itaque assumenda
-    quidem ratione voluptate sed illo fugit incidunt, corrupti ad harum vitae magnam voluptas. Corporis ad tempore sed
-    nobis, at id amet aliquid.
+<div class="main">
+    We, The Onion Company, are passionate about innovative visions. We serve critical niches that help our global community to productize a transparent ROI and maximize back-end models. We scale magnetic applications that help visualizing leading-edge relationships with our community in order to drive critical mass adoption.
+</div>
+<div class="main">
+    In this page we support our award winning app <a href="https://westernonion.herokuapp.com" target="_blank">WesternOnion</a>, offering our growing community a centralized place to report bugs and request new features. We commit to dedicate 50% of our resources to fix the bugs reported, and the other 50% of our resources are commited to implement the features requested. Prioritization is a key factor in our success. For that reason we will prioritize work on the most voted bugs and the new features with the higher amount of funding.
 </div>
 
 <div class="row">
-    <div class="col s12 m6 center-align">
-        <a href="{% url 'create_ticket' 'BUG' %}" class="waves-effect waves-light btn-large purple"><i class="material-icons left">bug_report</i>Report Bug</a>
+    <div class="col s12 m6 center-align main">
+        <a href="{% url 'create_ticket' 'BUG' %}" class="waves-effect waves-light btn-large btn-main purple"><i class="material-icons left">bug_report</i>Report Bug</a>
     </div>
-    <div class="col s12 m6 center-align">
-        <a href="{% url 'create_ticket' 'FEATURE' %}" class="waves-effect waves-light btn-large purple"><i class="material-icons right">extension</i>Request Feature</a>
+    <div class="col s12 m6 center-align main">
+        <a href="{% url 'create_ticket' 'FEATURE' %}" class="waves-effect waves-light btn-large btn-main purple"><i class="material-icons right">extension</i>Request Feature</a>
     </div>
 </div>
 

@@ -4,9 +4,9 @@
 
 <div class="row">
     <div class="col s12">
-        <div class="card purple darken-4">
-            <div class="card-content white-text">
-                <span class="card-title">{{ ticket.subject }}</span>
+        <div class="card purple lighten-4">
+            <div class="card-content">
+                <span class="card-title bold">{{ ticket.subject }}</span>
                 <p>{{ ticket.description }}</p>
             </div>
             <div class="card-action">
@@ -16,7 +16,7 @@
                 <span class="new badge purple" data-badge-caption="votes">{{ ticket.number_votes }}</span>
                 {% endif %}
                 <span id="ticketStatus{{ ticket.status }}" class="new badge purple" data-badge-caption="">{{ ticket.status }}</span>
-                <span class="white-text">Created: {{ ticket.creation_ts }}</span>
+                <span class="bold">Created: {{ ticket.creation_ts }}</span>
             </div>
         </div>
     </div>
@@ -27,7 +27,7 @@
     <div class="sr-main">
         <form id="payment-form" class="sr-payment-form">
             <input type="hidden" id="ticket" name="ticket" value="{{ ticket.pk }}">
-            <h6>How much do you want to contribute?</h6>
+            <h6 class="bold center-align">How much do you want to contribute?</h6>
             <div class="input-field">
                 <i class="material-icons prefix">monetization_on</i>
                 <input id="amount" type="number" class="validate" value="50" step="10" required>
@@ -37,13 +37,13 @@
                 <div class="sr-input sr-card-element" id="card-element"></div>
             </div>
             <div class="sr-field-error" id="card-errors" role="alert"></div>
-            <button id="submit">
+            <button id="submit" class="stripe">
                 <div class="spinner hidden" id="spinner"></div>
                 <span id="button-text">Pay</span><span id="order-amount"></span>
             </button>
         </form>
-        <div class="sr-result hidden">
-            <p><i class="material-icons prefix green-text">check_circle</i> Payment completed</p>
+        <div class="sr-result valign-wrapper hidden">
+            <i class="material-icons left medium green-text">check_circle</i> Payment completed
         </div>
     </div>
 </div>
@@ -56,5 +56,13 @@
     {{ form }}
     <button type="submit" class="btn purple">Comment</button>
 </form>
+
+<!-- ACTION BUTTON TO VIEW DETAILS -->
+<div class="fixed-action-btn">
+    <a href="{% url 'show_comments' ticket.id %}" class="btn-floating btn-large purple tooltipped" data-position="left"
+        data-tooltip="View all Comments">
+        <i class="large material-icons">zoom_in</i>
+    </a>
+</div>
 
 {% endblock %}

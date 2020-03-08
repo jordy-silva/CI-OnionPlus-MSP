@@ -34,7 +34,7 @@
     justify-content: center;
     height: 100%;
     align-self: center;
-    padding: 75px 50px;
+    padding: 25px 50px;
     background: var(--body-color);
     width: var(--form-width);
     border-radius: var(--radius);
@@ -79,7 +79,7 @@
     color: var(--gray-light);
   }
   .sr-result {
-    height: 44px;
+    height: 50px;
     -webkit-transition: height 1s ease;
     -moz-transition: height 1s ease;
     -o-transition: height 1s ease;
@@ -101,7 +101,7 @@
   }
   
   /* Buttons and links */
-  button {
+  button.stripe {
     background: var(--accent-color);
     border-radius: var(--radius);
     color: white;
@@ -127,11 +127,11 @@
     cursor: none;
   }
   
-  a {
+  /*a {
     color: var(--link-color);
     text-decoration: none;
     transition: all 0.2s ease;
-  }
+  }*/
   
   a:hover {
     filter: brightness(0.8);

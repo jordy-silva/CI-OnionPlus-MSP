@@ -6,7 +6,7 @@
     <div class="col s12">
         <div class="card purple lighten-4">
             <div class="card-content">
-                <span class="card-title">{{ ticket.subject }}</span>
+                <span class="card-title bold">{{ ticket.subject }}</span>
                 <p>{{ ticket.description }}</p>
             </div>
             <div class="card-action">
@@ -16,7 +16,7 @@
                 <span class="new badge purple" data-badge-caption="votes">{{ ticket.number_votes }}</span>
                 {% endif %}
                 <span id="ticketStatus{{ ticket.status }}" class="new badge purple" data-badge-caption="">{{ ticket.status }}</span>
-                <span>{{ ticket.creation_ts }}</span>
+                <span class="bold">Created: {{ ticket.creation_ts }}</span>
             </div>
         </div>
     </div>
@@ -27,10 +27,10 @@
     <div class="col s12">
         <div class="card purple lighten-5">
             <div class="card-content">
-                <span class="card-title">{{ comment.user_id }}</span>
+                <span class="card-title">{{ comment.user_name }} said:</span>
                 <p>{{ comment.description }}</p>
             </div>
-            <div class="card-action">
+            <div class="card-action bold">
                 <span>Created: {{ comment.creation_ts }}</span>
             </div>
         </div>
@@ -41,8 +41,8 @@
 <!-- ACTION BUTTON TO ADD NEW RECORD -->
 {% if user.is_authenticated %}
 <div class="fixed-action-btn">
-    <a href="{% url 'add_comment' ticket.id user.id %}" class="btn-floating btn-large purple tooltipped" data-position="left"
-        data-tooltip="Add new">
+    <a href="{% url 'add_comment' ticket.id user.first_name %}" class="btn-floating btn-large purple tooltipped" data-position="left"
+        data-tooltip="Add New Comment">
         <i class="large material-icons">add_circle</i>
     </a>
 </div>

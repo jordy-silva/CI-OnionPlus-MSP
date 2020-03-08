@@ -4,8 +4,13 @@
 
 {% if type == 'FEATURE' %}
 <h2 class="center-align">Features</h2>
-<p>Features that reach the 500€ will be worked on. If you want to support the development of any feature please use the
-    button to make your contribution.</p>
+<div class="main_features">
+    <p>We commit to dedicate 50% of our resources to develop the features requested and needed by our community.
+        Features that reach the 500€ mark will be worked on, starting by the higher funded feature.</p>
+    <p>If you want to support the development of any of these features, or you want to put any of them at the top of the
+        list so it gets implemented sooner, please use the <i class="small material-icons">monetization_on</i> to make
+        your contribution.</p>
+</div>
 {% else %}
 <h2 class="center-align">Bugs</h2>
 {% endif %}
@@ -14,7 +19,7 @@
 <ul class="collapsible popout">
     {% for ticket in tickets %}
     <li>
-        <div class="collapsible-header">
+        <div class="collapsible-header bold">
             <i class="material-icons">
                 <!-- Different icon in the the collapsible header for bugs and features-->
                 {% if type == 'FEATURE' %}
@@ -28,38 +33,48 @@
             <!-- If user has already voted this ticket, we don't show thumbs up button -->
             <span id="ticketBadge">
                 {% if ticket.pk not in voted %}
-                <a href="{% url 'thumb_up' ticket.id %}">
+                <a href="{% url 'thumb_up' ticket.id %}" class="tooltipped" data-position="left"
+                data-tooltip="Upvote Bug">
                     <i class="small material-icons purple-text">thumb_up</i>
                 </a>
-                {% elif type == 'FEATURE' %}
-                <a href="{% url 'show_comments' ticket.id %}">
+                {% elif type == 'FEATURE' and user.is_authenticated %}
+                <a href="{% url 'add_comment' ticket.id user.first_name %}" class="tooltipped" data-position="left"
+                    data-tooltip="Fund this Feature">
                     <i class="small material-icons purple-text">monetization_on</i>
                 </a>
                 {% endif %}
-            {% if type == 'FEATURE' %}
-            <span class="new badge purple" data-badge-caption="funded">{% widthratio ticket.number_votes 100 1 %}
-                €</span>
-            {% else %}
-            <span class="new badge purple" data-badge-caption="votes">{{ ticket.number_votes }}</span>
-            {% endif %}
-        </span>
+                {% if type == 'FEATURE' %}
+                <span class="new badge purple" data-badge-caption="funded">{% widthratio ticket.number_votes 100 1 %}
+                    €</span>
+                {% else %}
+                <span class="new badge purple" data-badge-caption="votes">{{ ticket.number_votes }}</span>
+                {% endif %}
+            </span>
         </div>
         <div class="collapsible-body">
-            <span>{{ ticket.description }}</span><br>
+            <div class="row">
+                <div class="col">
+                    <span>{{ ticket.description }}</span>
+                </div>
+            </div>
             <hr>
-            {% if type == 'FEATURE' %}
-            <span class="bold">Requested: {{ ticket.creation_ts }}</span><br>
-            {% else %}
-            <span class="bold">Reported: {{ ticket.creation_ts }}</span><br>
-            {% endif %}
-            <span>{{ ticket.ticket_type }}</span><br>
-            <span>{{ ticket.pk }}</span><br>
-            {% if user.is_authenticated %}
-            <a href="{% url 'add_comment' ticket.id user.id %}"
-                class="waves-effect waves-light btn-small purple">Comment</a>
-            {% endif %}
-            <a href="{% url 'show_comments' ticket.id %}" class="waves-effect waves-light btn-small purple">Show
-                Details</a>
+            <div class="row">
+                {% if type == 'FEATURE' %}
+                <span class="bold col s12">Requested: {{ ticket.creation_ts }}</span><br>
+                {% else %}
+                <span class="bold col s12">Reported: {{ ticket.creation_ts }}</span><br>
+                {% endif %}
+                <div class="col s12 right-align">
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'add_comment' ticket.id user.first_name %}"
+                        class="waves-effect waves-light btn-small purple tooltipped" data-position="left"
+                        data-tooltip="Add New Comment"><i class="material-icons">textsms</i></a>
+                    {% endif %}
+                    <a href="{% url 'show_comments' ticket.id %}"
+                        class="waves-effect waves-light btn-small purple tooltipped" data-position="left"
+                        data-tooltip="View all Comments"><i class="material-icons">zoom_in</i></a>
+                </div>
+            </div>
         </div>
     </li>
     {% endfor %}
@@ -68,7 +83,7 @@
 <!-- ACTION BUTTON TO ADD NEW RECORD -->
 <div class="fixed-action-btn">
     <a href="{% url 'create_ticket' type %}" class="btn-floating btn-large purple tooltipped" data-position="left"
-        data-tooltip="Add new">
+        data-tooltip="Add New">
         <i class="large material-icons">add_circle</i>
     </a>
 </div>

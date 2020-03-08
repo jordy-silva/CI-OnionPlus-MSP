@@ -14,7 +14,6 @@ stripe.api_key = settings.STRIPE_SECRET_KEY
 @csrf_exempt
 def create_payment(request):
     data = json.loads(request.body)
-    print(data)
     # Create a PaymentIntent with the order amount and currency
     intent = stripe.PaymentIntent.create(
         amount=data['amount'],

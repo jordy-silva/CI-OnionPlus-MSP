@@ -7,8 +7,8 @@ class Ticket(models.Model):
     BUG = 'BUG'
     FEATURE = 'FEATURE'
     TICKET_TYPE_CHOICES = (
-        (BUG, 'Bug'),
-        (FEATURE, 'Feature'),
+        (BUG, 'Bug Report'),
+        (FEATURE, 'Feature Request'),
     )
 
     TODO = 'TODO'
@@ -24,7 +24,7 @@ class Ticket(models.Model):
         choices=TICKET_TYPE_CHOICES,
         default=FEATURE,
     )
-    user_id = models.IntegerField(default=5555)
+    user_id = models.IntegerField(default=0)
     subject = models.CharField(max_length=254)
     description = models.TextField()
     creation_ts = models.DateTimeField(auto_now_add=True)
@@ -40,7 +40,7 @@ class Ticket(models.Model):
 
 
 class Comment(models.Model):
-    user_id = models.IntegerField(default=0)
+    user_name = models.CharField(max_length=100,default='Anonymous')
     ticket_id = models.IntegerField(default=0)
     description = models.TextField()
     creation_ts = models.DateTimeField(auto_now_add=True)
