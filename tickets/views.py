@@ -83,12 +83,18 @@ def show_comments(request, pk):
 @login_required(login_url='/')
 def thumb_up(request, pk):
     """ Allow for a user to upvote a ticket """
-    vote = Vote()
-    vote.user_id = request.user.id
-    vote.ticket_id = pk
-    vote.save()
-    ticket = get_object_or_404(Ticket, pk=pk) if pk else None
-    ticket.number_votes = Vote.objects.filter(ticket_id=pk).count()
-    ticket.save()
-    messages.success(request, "Vote added")
+    # Check if user already voted this ticket
+    try:
+        voted = Vote.objects.get(user_id=request.user.id, ticket_id=pk)
+    except:
+        vote = Vote()
+        vote.user_id = request.user.id
+        vote.ticket_id = pk
+        vote.save()
+        ticket = get_object_or_404(Ticket, pk=pk) if pk else None
+        ticket.number_votes = Vote.objects.filter(ticket_id=pk).count()
+        ticket.save()
+        messages.success(request, "Vote added")
+    else:
+        messages.error(request, "You already votes this. NOT Added")
     return redirect('show_comments', pk)
