@@ -1,3 +1,9 @@
+// Copyright (c) 2019- Stripe, Inc. (https://stripe.com)
+
+// Original file: https://github.com/stripe-samples/accept-a-card-payment/blob/master/using-webhooks/client/web/script.js
+
+// Some changes have been done to this file by the student to adapt it to the use case, specially to allow the user of the webapp to enter an amount to pay by themselves and add the amount to the previous funding amount without requiring a reload of the page.
+
 // A reference to Stripe.js
 var stripe;
 
